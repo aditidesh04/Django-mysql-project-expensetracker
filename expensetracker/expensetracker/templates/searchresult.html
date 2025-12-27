@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Report - Expense Tracker</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons for icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); /* Finance-themed background */
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      min-height: 100vh;
+      position: relative;
+      padding: 20px;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(34, 139, 34, 0.1); /* Subtle green overlay for money theme */
+      z-index: -1;
+    }
+    .report-container {
+      margin-top: 60px;
+      background: rgba(255, 255, 255, 0.92); /* Semi-transparent white for readability */
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+      border: 1px solid rgba(144, 238, 144, 0.3); /* Light green border */
+      backdrop-filter: blur(10px); /* Glassmorphism effect */
+      animation: fadeInSlideUp 1s ease-out; /* Fade-in animation */
+      max-width: 100%; /* Responsive */
+    }
+    @keyframes fadeInSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50; /* Darker color for contrast */
+      font-weight: 700;
+      margin-bottom: 30px;
+      animation: fadeIn 1.5s ease-out;
+      font-size: 1.8rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    h2 i {
+      color: #28a745; /* Green icon for theme */
+      margin-right: 10px;
+    }
+    table {
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+      border: 1px solid rgba(144, 238, 144, 0.2); /* Light green border */
+      animation: fadeIn 2s ease-out;
+    }
+    thead {
+      background: linear-gradient(90deg, #28a745, #198754); /* Green gradient for header */
+      color: white;
+    }
+    thead th {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    tbody tr:hover {
+      background-color: rgba(40, 167, 69, 0.1); /* Subtle green hover */
+      transition: background-color 0.3s ease;
+    }
+    .amount {
+      font-weight: 600;
+      color: #28a745; /* Green for amounts */
+    }
+    .category-badge {
+      padding: 5px 10px;
+      border-radius: 15px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .category-Food {
+      background-color: #dc3545; /* Red for Food */
+    }
+    .category-Entertainment {
+      background-color: #ffc107; /* Yellow for Entertainment */
+      color: #212529; /* Dark text for contrast */
+    }
+    .category-Bills {
+      background-color: #17a2b8; /* Blue for Bills */
+    }
+    .category-Shopping {
+      background-color: #6c757d; /* Gray for Shopping */
+    }
+    .back-btn {
+      background-color: #28a745; /* Green button */
+      color: white;
+      border-radius: 20px;
+      padding: 10px 20px;
+      border: none;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      animation: pulse 2s infinite; /* Pulsing animation */
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .back-btn:hover {
+      background-color: #218838; /* Darker green */
+      transform: translateY(-2px) scale(1.05); /* Lift and scale */
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); /* Green shadow */
+    }
+    .back-btn i {
+      margin-right: 5px;
+    }
+    .decorative-icon {
+      font-size: 3rem;
+      color: #28a745;
+      text-align: center;
+      margin-bottom: 15px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 15px;
+      display: block;
+      border-radius: 50%;
+      border: 2px solid rgba(144, 238, 144, 0.5);
+      animation: rotateIn 1s ease-out;
+    }
+    @keyframes rotateIn {
+      from {
+        opacity: 0;
+        transform: rotate(-180deg) scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container report-container">
+    <!-- Decorative Icon -->
+    <i class="bi bi-graph-up decorative-icon"></i>
+    
+    <!-- Logo Image -->
+    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Expense Tracker Logo" class="logo-img">
+    
+    <h2><i class="bi bi-graph-up"></i>Expenses on {{expdt}}</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped align-middle text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>UserID</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount (₹)</th>
+            <th>Payment Mode</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+            {% for ex in expdata %}
+            <tr>
+                {% for val in ex %}
+                <td>{{val}}</td>
+                {%endfor%}
+
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+      </table>
+
+      
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="/dashboard/" class="back-btn">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
